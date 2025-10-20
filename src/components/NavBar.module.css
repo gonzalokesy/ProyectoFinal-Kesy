@@ -1,0 +1,23 @@
+.encabezado {
+    background-color: #F29B44;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+}
+
+.logo {
+    width: 70px
+}
+
+.navList {
+    display: flex;
+    list-style-type: none;
+    width: 500px;
+    justify-content: space-between;
+}
+
+.navLink {
+    text-decoration: none;
+    color: #ffffff;
+}

@@ -1,0 +1,10 @@
+.mainContainer {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(146, 146, 146);
+}
+
+.mainSection {
+    padding-top: 100px;
+}
