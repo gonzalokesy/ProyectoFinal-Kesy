@@ -1,12 +1,24 @@
-import styles from './ItemListContainer.module.css'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router'
+import ItemList from './ItemList'
 
-function ItemListContainer({ mensaje }) {
+function ItemListContainer() {
+    const [productos, setProductos] = useState([])
+    const { categoryId } = useParams()
+
+    useEffect(() => {
+        const url = categoryId
+            ? `https://dummyjson.com/products/category/${categoryId}`
+            : 'https://dummyjson.com/products'
+
+        fetch(url)
+            .then(res => res.json())
+            .then(data => setProductos(data.products))
+            .catch(e => console.error(e));
+
+    }, [categoryId])
     return (
-        <main className={styles.mainContainer}>
-            <section className={styles.mainSection}>
-                <p>{mensaje}</p>
-            </section>
-        </main>
+        <ItemList productos={productos} />
     )
 }
 

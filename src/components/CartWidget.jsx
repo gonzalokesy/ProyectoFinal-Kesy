@@ -1,5 +1,5 @@
 import Badge from '@mui/joy/Badge';
-import styles from './CartWidget.module.css'
+import styles from '../styles/CartWidget.module.css'
 function CartWidget() {
     return (
         <div className={styles.cartContainer}>
