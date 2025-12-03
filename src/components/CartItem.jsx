@@ -24,7 +24,7 @@ function CartItem({ item }) {
                 <div className="d-flex align-items-center justify-content-center gap-2">
                     <Button variant="outline-secondary" size="sm" onClick={() => decrementQuantity(item.id)} disabled={item.count <= 1}>-</Button>
                     <span className="fw-bold">{item.count}</span>
-                    <Button variant="outline-secondary" size="sm" onClick={() => incrementQuantity(item.id)}>+</Button>
+                    <Button variant="outline-secondary" size="sm" onClick={() => incrementQuantity(item.id)} disabled={item.count >= item.stock}>+</Button>
                 </div>
             </div>
 

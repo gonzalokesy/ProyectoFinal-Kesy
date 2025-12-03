@@ -6,14 +6,14 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from "react-router";
 import { useState, useEffect } from "react";
 import styles from '../styles/NavBar.module.css'
+import { getCategories } from "../firebase/db";
 
 function NavBar() {
     const [categories, setCategories] = useState([])
 
     useEffect(() => {
-        fetch('https://dummyjson.com/products/category-list')
-            .then(res => res.json())
-            .then(category => setCategories(category));
+        getCategories()
+            .then(cat => setCategories(cat))
     }, [])
     return (
         <Navbar expand="lg" className={styles.navBar}>

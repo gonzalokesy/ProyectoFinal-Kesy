@@ -7,7 +7,6 @@ function CartProvider({ children }) {
     const getCartQuantity = () => cart.reduce(
         (acc, current) => acc + current.count, 0)
 
-    // Agregar productos al carrito 
     const addToCart = (product) => {
         if (isInCart(product.id)) {
             const newCart = cart.map(prod => {
@@ -23,28 +22,27 @@ function CartProvider({ children }) {
         }
     }
 
-    //Verificar existencia del producto
     const isInCart = (id) => {
         return cart.some(prod => prod.id === id)
     }
 
-    // Vaciar carrito
     const clearCart = () => setCart([])
 
-    // Total de la compra 
     const totalPrice = cart.reduce((acc, prod) => acc + (prod.price * prod.count), 0);
 
-    // Eliminar prodcuto del carrito 
     const removeItem = (id) => {
         const cartUpdated = cart.filter(prod => prod.id !== id)
         setCart(cartUpdated)
     }
 
-    // Incrementar cantidad en el carrito
     const incrementQuantity = (id) => {
         const newCartIncremented = cart.map(prod => {
             if (id === prod.id) {
-                return { ...prod, count: prod.count + 1 }
+                if (prod.count < prod.stock) {
+                    return { ...prod, count: prod.count + 1 }
+                } else {
+                    return prod
+                }
             } else {
                 return prod
             }

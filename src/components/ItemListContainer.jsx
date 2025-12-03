@@ -1,24 +1,29 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import ItemList from './ItemList'
+import { getItems, getProductsByCategory } from '../firebase/db'
+import Loader from './Loader'
 
 function ItemListContainer() {
+    const [loading, setLoading] = useState(true)
     const [productos, setProductos] = useState([])
     const { categoryId } = useParams()
 
     useEffect(() => {
-        const url = categoryId
-            ? `https://dummyjson.com/products/category/${categoryId}`
-            : 'https://dummyjson.com/products'
+        const asyncFunc = categoryId ? getProductsByCategory(categoryId, setProductos) : getItems(setProductos)
 
-        fetch(url)
-            .then(res => res.json())
-            .then(data => setProductos(data.products))
-            .catch(e => console.error(e));
+        asyncFunc
+            .then(() => {
+                setLoading(false)
+            })
+            .catch(error => {
+                console.error(error)
+                setLoading(false)
+            })
 
     }, [categoryId])
     return (
-        <ItemList productos={productos} />
+        loading ? <Loader /> : <ItemList productos={productos} />
     )
 }
 

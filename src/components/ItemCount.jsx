@@ -8,7 +8,9 @@ function ItemCount({ item }) {
     const { addToCart } = useContext(CartContext)
 
     const handleIncrement = () => {
-        setCount(count + 1);
+        if (count < item.stock) {
+            setCount(count + 1);
+        }
     };
 
     const handleDecrement = () => {
@@ -24,8 +26,9 @@ function ItemCount({ item }) {
             <div className="mb-3 d-flex align-items-center">
                 <Button variant="outline-secondary" onClick={handleDecrement}>-</Button>
                 <span className="mx-4 fs-5">{count}</span>
-                <Button variant="outline-secondary" onClick={handleIncrement}>+</Button>
+                <Button variant="outline-secondary" onClick={handleIncrement} disabled={count >= item.stock}>+</Button>
             </div>
+            <small className="text-muted mb-2">Stock disponible: {item.stock}</small>
             <Button variant="primary" onClick={handledAddToCart}>
                 Agregar al Carrito
             </Button>
